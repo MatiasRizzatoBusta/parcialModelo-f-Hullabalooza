@@ -26,10 +26,8 @@ cambiarEstado nuevoEstado festival = festival{estadoPublico=[nuevoEstado]}
 agregoEstadoAlPublico :: String->Festival->Festival
 agregoEstadoAlPublico nuevoEstado festival = festival{estadoPublico=(estadoPublico festival) ++[nuevoEstado]}
 -------------------------- Bandas -------------------------- 
-
 tocar :: Banda->Festival->Festival
 tocar banda  = (genero banda)
-
 ------------------------------------------------------------- Punto 2 -------------------------------------------------------------
 ------------------------------------------------------------- Generos -------------------------------------------------------------
 type Genero = Festival->Festival
@@ -71,11 +69,11 @@ unaBandaToca :: [Banda]->Festival->Festival
 unaBandaToca bandas festival = foldl (flip tocar) festival bandas -- con flip hago que primero llegue el festival y dep la banda
 
 ------------------------------------------------------------- Punto 5 --------------------------------------------------------------
-esVendida :: [String]->Bool--hago que solo trabaje con la descripcion asi no recibe datos inecesarios
-esVendida descripciones = ((>=3).length) descripciones || elem ("vendida") descripciones
+esVendida :: Banda->Bool--hago que solo trabaje con la descripcion asi no recibe datos inecesarios
+esVendida banda = (((>=3).length.descripciones)) banda || elem ("vendida") (descripciones banda)
 
-esAcustica :: Int->Bool
-esAcustica = (>55)
+esAcustica :: Banda->Bool
+esAcustica = (>55).decibeles
 
 esLegendaria :: Banda->Bool
 esLegendaria banda = (elem "legendaria".descripciones) banda && ((>40).decibeles) banda
