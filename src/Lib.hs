@@ -66,7 +66,8 @@ theStrokes = UnaBanda "the Strokes" ["suicidio asistido","emocional","linda"] 45
 
 ------------------------------------------------------------- Punto 4 --------------------------------------------------------------
 suceder :: Festival->Festival
-suceder festival = (unaBandaToca festival.map genero.bandas) festival
+suceder festival = unaBandaToca (bandas festival) festival
 
-unaBandaToca :: Festival->[Genero]->Festival
-unaBandaToca festival lista = foldr ($) festival lista
+unaBandaToca :: [Banda]->Festival->Festival
+unaBandaToca bandas festival = foldl (flip tocar) festival bandas -- con flip hago que primero llegue el festival y dep la banda
+
