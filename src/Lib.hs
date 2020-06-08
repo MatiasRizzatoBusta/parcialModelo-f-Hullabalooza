@@ -37,7 +37,7 @@ rockNacional :: Genero
 rockNacional = aumentarPublico (+100)
 
 pop :: Genero
-pop festival | (any (=="indiferente").estadoPublico) festival = (aumentarPublico (*2) .cambiarEstado "euforico") festival
+pop festival |(any (=="indiferente").estadoPublico) festival = (aumentarPublico (*2) .cambiarEstado "euforico") festival
              |otherwise = festival
 
 heavyMetal :: Genero
@@ -91,3 +91,15 @@ buenFest festival = ((>1000).sum.map popularidad.bandas) festival && estaOrdenad
 estaOrdenadoPorPopularidad :: [Banda]->Bool
 estaOrdenadoPorPopularidad [] = True
 estaOrdenadoPorPopularidad (x:xs)= popularidad x >= (popularidad.head) xs  &&  estaOrdenadoPorPopularidad xs
+
+------------------------------------------------------------- Punto 8 --------------------------------------------------------------
+{-
+Los conceptos de aplicacion parcial y composicion fueron utiles en la resolucion del parcial debido a que me permitieron en ciertos
+casos pasar parametros de la forma point-free,evitando que .
+El concepto de composicion fue utilizado en todos los puntos del parcial menos el 4.
+El concepto de aplicacion parcial se utilizo tambien en todos los puntos del parcial salvo el 4.
+
+------------------------------------------------------------- Punto 9 --------------------------------------------------------------
+las funciones del punto 5 que trabajan con las descripciones pueden trabajar con listas infinitas ya que no necesitan evaluar todas
+las descripciones que tenga la banda.Cuando encuentren la palabra que necesitan dentro de la lista infinita van a cortar la busqueda
+-}
