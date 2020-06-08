@@ -1,7 +1,6 @@
 module Lib where
 import Text.Show.Functions
 laVerdad = True
-
 -------------------------- Punto 1 -------------------------- 
 type Estado = String
 data Festival = UnFestival{
@@ -71,3 +70,24 @@ suceder festival = unaBandaToca (bandas festival) festival
 unaBandaToca :: [Banda]->Festival->Festival
 unaBandaToca bandas festival = foldl (flip tocar) festival bandas -- con flip hago que primero llegue el festival y dep la banda
 
+------------------------------------------------------------- Punto 5 --------------------------------------------------------------
+esVendida :: [String]->Bool--hago que solo trabaje con la descripcion asi no recibe datos inecesarios
+esVendida descripciones = ((>=3).length) descripciones || elem ("vendida") descripciones
+
+esAcustica :: Int->Bool
+esAcustica = (>55)
+
+esLegendaria :: Banda->Bool
+esLegendaria banda = (elem "legendaria".descripciones) banda && ((>40).decibeles) banda
+
+------------------------------------------------------------- Punto 6 --------------------------------------------------------------
+popularidad :: Banda->Int
+popularidad = (*100).length.descripciones
+
+------------------------------------------------------------- Punto 7 --------------------------------------------------------------
+buenFest :: Festival->Bool
+buenFest festival = ((>1000).sum.map popularidad.bandas) festival && estaOrdenadoPorPopularidad (bandas festival)
+
+estaOrdenadoPorPopularidad :: [Banda]->Bool
+estaOrdenadoPorPopularidad [] = True
+estaOrdenadoPorPopularidad (x:xs)= popularidad x >= (popularidad.head) xs  &&  estaOrdenadoPorPopularidad xs
